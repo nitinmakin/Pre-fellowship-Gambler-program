@@ -22,7 +22,7 @@ public class GambleSimulation
 		return random.nextInt(2);
 	}
 
-	public static void getTwentyDaysReport()
+	public static void getMonthReport()
 	{
 		while(day < 30)
 		{
@@ -71,7 +71,7 @@ public class GambleSimulation
 	public static void main(String[] args)
 	{
 		WelcomeMessage();
-		getTwentyDaysReport();
+		getMonthReport();
 
 	}
 }

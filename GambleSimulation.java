@@ -1,12 +1,13 @@
 import java.util.Random;
-
 public class GambleSimulation 
 {
 	static int initialAmount = 100;
 	static int betPlaced = 1;
-	static int stopOfDayLoss=50;
-	static int stopOfDayWin=150;
-
+	static int stopOfDayLoss = 50;
+	static int stopOfDayWin = 150;
+	static int twentyDayloss = 0;
+	static int twentyDayWin = 0;
+	static int day = 0;
 	public static void WelcomeMessage()
 
 	{
@@ -21,30 +22,56 @@ public class GambleSimulation
 		return random.nextInt(2);
 	}
 
-	public static void resignOfTheDay()
+	public static void getTwentyDaysReport()
 	{
-
-		while(initialAmount > 50 && initialAmount < 150)
+		while(day < 20)
 		{
-			int random=generateRandomNo();
+			initialAmount = 100;
+			while(initialAmount > 50 && initialAmount < 150)//per day report start
+			{
+				int random = generateRandomNo();
 
-			if(random == 0)
-				initialAmount--;
+				if(random == 0)
+					initialAmount--;
 
-			else
-				initialAmount++;
+				else
+					initialAmount++;
+			}//per day report end
+			if(initialAmount == stopOfDayLoss)
+			{
+				System.out.println("He LOST for a day"+(day+1)+" is $"+initialAmount);
+				twentyDayloss = twentyDayloss+50;
+				day++;
+
+			}
+			else {
+				System.out.println("He win for day "+(day+1)+" is $"+initialAmount);
+				twentyDayWin = twentyDayWin+50;
+				day++;
+			}
 		}
-		if(initialAmount == stopOfDayLoss)
-			System.out.println("He LOST for a day----> $"+initialAmount);
 
-		else
-			System.out.println("He WON for the day----> $"+(initialAmount-100));
+		System.out.println();
+		System.out.println("20 days loss is $"+twentyDayloss);
+		System.out.println("20 days wins is $"+twentyDayWin);
+		if(twentyDayloss > twentyDayWin)//to calculate 20 days loss
+		{
+			twentyDayloss = twentyDayloss-twentyDayWin;
+			System.out.println();
+			System.out.println("overall loss in 20 days  is $"+twentyDayloss);
+		}
+
+		else {//to calculate 20 days win
+			twentyDayWin = twentyDayWin-twentyDayloss;
+			System.out.println();
+			System.out.println("overall profit in a 20 days  is $"+twentyDayWin);
+		}
 	}
 
 	public static void main(String[] args)
 	{
 		WelcomeMessage();
-		resignOfTheDay();
+		getTwentyDaysReport();
 
 	}
 }

@@ -54,14 +54,14 @@ public class GambleSimulation
 		System.out.println();
 		System.out.println("month loss is $"+monthLoss);
 		System.out.println("month wins is $"+monthWin);
-		if(monthLoss > monthWin)//to calculate 20 days loss
+		if(monthLoss > monthWin)//to calculate 30 days loss
 		{
 			monthLoss = monthLoss-monthWin;
 			System.out.println();
 			System.out.println("overall loss in a month  is $"+monthLoss);
 		}
 
-		else {//to calculate 20 days win
+		else {//to calculate 30 days win
 			monthWin = monthWin-monthLoss;
 			System.out.println();
 			System.out.println("overall profit in a month  is $"+monthWin);

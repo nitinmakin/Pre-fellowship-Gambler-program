@@ -1,5 +1,6 @@
+import java.util.Arrays;
 import java.util.Random;
-public class GambleSimulation 
+public class GambleSimulation
 {
 	static int initialAmount = 100;
 	static int betPlaced = 1;
@@ -7,12 +8,16 @@ public class GambleSimulation
 	static int stopOfDayWin = 150;
 	static int monthLoss = 0;
 	static int monthWin = 0;
-	static int day = 0;
+	static int day = 1;
+	static int luckyDay = 0;
+	static int unluckyDay = 0;
+	static int luckyUnluckyDayAmount = 0;
+
 	public static void WelcomeMessage()
 
 	{
-		System.out.println("Gambler is starting bet from $100");
-		System.out.println("He putting $1 in every bet so he win or loss $1 at a time");
+		System.out.println("GAMBLER IS STARTING BET FROM $100 EVERY DAY");
+		System.out.println("HE IS PUTTING $1 IN EVERY BET SO HE WIN OR LOSS $1 IN EVERY BET");
 		System.out.println("------------------------------");
 	}
 
@@ -24,31 +29,39 @@ public class GambleSimulation
 
 	public static void getMonthReport()
 	{
-		while(day < 30)
+		int arr[]=new int[30];
+		while(day <= 30)
 		{
+
 			initialAmount = 100;
 			while(initialAmount > 50 && initialAmount < 150)//per day report start
 			{
 				int random = generateRandomNo();
 
-				if(random == 0)
+				if(random == 0) 
+				{
 					initialAmount--;
-
+				}
 				else
+				{
 					initialAmount++;
+				}
 			}//per day report end
 			if(initialAmount == stopOfDayLoss)
 			{
-				System.out.println("He LOST for a day "+(day+1)+" is $"+initialAmount);
+				System.out.println("day "+day+" He LOST--->$"+50);
 				monthLoss = monthLoss+50;
-				day++;
-
+				luckyUnluckyDayAmount = luckyUnluckyDayAmount-50;
+				arr[day-1] = luckyUnluckyDayAmount;
 			}
-			else {
-				System.out.println("He WON for day "+(day+1)+" is $"+initialAmount);
+			else 
+			{
+				System.out.println("day "+day+" He WON---->$"+50);
 				monthWin = monthWin+50;
-				day++;
+				luckyUnluckyDayAmount = luckyUnluckyDayAmount+50;
+				arr[day-1] = luckyUnluckyDayAmount;
 			}
+			day++;
 		}
 
 		System.out.println();
@@ -66,13 +79,51 @@ public class GambleSimulation
 			System.out.println();
 			System.out.println("overall profit in a month  is $"+monthWin);
 		}
+
+
+		System.out.println();
+
+		//System.out.println(Arrays.toString(arr));
+		getLuckyUnluckyDay(arr);
+
 	}
+
+	public static void getLuckyUnluckyDay(int arr[])
+	{
+
+
+		int high = arr[0];
+		int low = arr[0];
+		for (int i = 0; i < arr.length; i++) 
+		{
+			if(high < arr[i])
+			{
+				high = arr[i];
+				luckyDay = i+1;
+			}
+			if(low > arr[i])
+			{
+				low = arr[i];
+				unluckyDay = i+1;
+			}
+
+
+		}
+		System.out.println("lucky day was day "+luckyDay+" he was in $"+high);
+		System.out.println("Unlucky day was day "+unluckyDay+" he was in $"+low);
+
+	}
+
 
 	public static void main(String[] args)
 	{
 		WelcomeMessage();
 		getMonthReport();
-
 	}
 }
+
+
+
+
+
 

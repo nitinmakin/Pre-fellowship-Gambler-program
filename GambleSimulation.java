@@ -5,8 +5,8 @@ public class GambleSimulation
 	static int betPlaced = 1;
 	static int stopOfDayLoss = 50;
 	static int stopOfDayWin = 150;
-	static int twentyDayloss = 0;
-	static int twentyDayWin = 0;
+	static int monthLoss = 0;
+	static int monthWin = 0;
 	static int day = 0;
 	public static void WelcomeMessage()
 
@@ -24,7 +24,7 @@ public class GambleSimulation
 
 	public static void getTwentyDaysReport()
 	{
-		while(day < 20)
+		while(day < 30)
 		{
 			initialAmount = 100;
 			while(initialAmount > 50 && initialAmount < 150)//per day report start
@@ -39,32 +39,32 @@ public class GambleSimulation
 			}//per day report end
 			if(initialAmount == stopOfDayLoss)
 			{
-				System.out.println("He LOST for a day"+(day+1)+" is $"+initialAmount);
-				twentyDayloss = twentyDayloss+50;
+				System.out.println("He LOST for a day "+(day+1)+" is $"+initialAmount);
+				monthLoss = monthLoss+50;
 				day++;
 
 			}
 			else {
-				System.out.println("He win for day "+(day+1)+" is $"+initialAmount);
-				twentyDayWin = twentyDayWin+50;
+				System.out.println("He WON for day "+(day+1)+" is $"+initialAmount);
+				monthWin = monthWin+50;
 				day++;
 			}
 		}
 
 		System.out.println();
-		System.out.println("20 days loss is $"+twentyDayloss);
-		System.out.println("20 days wins is $"+twentyDayWin);
-		if(twentyDayloss > twentyDayWin)//to calculate 20 days loss
+		System.out.println("month loss is $"+monthLoss);
+		System.out.println("month wins is $"+monthWin);
+		if(monthLoss > monthWin)//to calculate 20 days loss
 		{
-			twentyDayloss = twentyDayloss-twentyDayWin;
+			monthLoss = monthLoss-monthWin;
 			System.out.println();
-			System.out.println("overall loss in 20 days  is $"+twentyDayloss);
+			System.out.println("overall loss in a month  is $"+monthLoss);
 		}
 
 		else {//to calculate 20 days win
-			twentyDayWin = twentyDayWin-twentyDayloss;
+			monthWin = monthWin-monthLoss;
 			System.out.println();
-			System.out.println("overall profit in a 20 days  is $"+twentyDayWin);
+			System.out.println("overall profit in a month  is $"+monthWin);
 		}
 	}
 

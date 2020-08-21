@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Random;
 public class GambleSimulation
 {
@@ -8,6 +7,8 @@ public class GambleSimulation
 	static int stopOfDayWin = 150;
 	static int monthLoss = 0;
 	static int monthWin = 0;
+	static int overallMonthWin=0;
+	static int overallMonthLoss=0;
 	static int day = 1;
 	static int luckyDay = 0;
 	static int unluckyDay = 0;
@@ -25,67 +26,78 @@ public class GambleSimulation
 	{
 		Random random=new Random();
 		return random.nextInt(2);
+
 	}
 
 	public static void getMonthReport()
 	{
-		int arr[]=new int[30];
-		while(day <= 30)
-		{
-
-			initialAmount = 100;
-			while(initialAmount > 50 && initialAmount < 150)//per day report start
-			{
-				int random = generateRandomNo();
-
-				if(random == 0) 
-				{
-					initialAmount--;
-				}
-				else
-				{
-					initialAmount++;
-				}
-			}//per day report end
-			if(initialAmount == stopOfDayLoss)
-			{
-				System.out.println("day "+day+" He LOST--->$"+50);
-				monthLoss = monthLoss+50;
-				luckyUnluckyDayAmount = luckyUnluckyDayAmount-50;
-				arr[day-1] = luckyUnluckyDayAmount;
-			}
-			else 
-			{
-				System.out.println("day "+day+" He WON---->$"+50);
-				monthWin = monthWin+50;
-				luckyUnluckyDayAmount = luckyUnluckyDayAmount+50;
-				arr[day-1] = luckyUnluckyDayAmount;
-			}
-			day++;
-		}
-
-		System.out.println();
-		System.out.println("month loss is $"+monthLoss);
-		System.out.println("month wins is $"+monthWin);
-		if(monthLoss > monthWin)//to calculate 30 days loss
-		{
-			monthLoss = monthLoss-monthWin;
+		int month=1;
+		do {
+			int arr[]=new int[30];
+                        day = 1;
+                        monthLoss = 0;
+                        monthWin = 0;
+                        overallMonthWin=0;
+                        overallMonthLoss=0;
+                        luckyDay = 0;
+                        unluckyDay = 0;
+                        luckyUnluckyDayAmount = 0;
 			System.out.println();
-			System.out.println("overall loss in a month  is $"+monthLoss);
-		}
-
-		else {//to calculate 30 days win
-			monthWin = monthWin-monthLoss;
 			System.out.println();
-			System.out.println("overall profit in a month  is $"+monthWin);
-		}
+			System.out.println("MONTH NO "+month+" DATA");
+			System.out.println("------------------------");
+
+			while(day <= 30)
+			{
 
 
-		System.out.println();
+				initialAmount = 100;
+				while(initialAmount > 50 && initialAmount < 150)//per day report start
+				{
+					int random = generateRandomNo();
 
-		//System.out.println(Arrays.toString(arr));
-		getLuckyUnluckyDay(arr);
+					if(random == 0) 
+					{
+						initialAmount--;
+					}
+					else
+					{
+						initialAmount++;
+					}
+				}//per day report end
+				if(initialAmount == stopOfDayLoss)
+				{
+					System.out.println("day "+day+" He LOST--->$"+50);
+					monthLoss = monthLoss+50;
+					luckyUnluckyDayAmount = luckyUnluckyDayAmount-50;
+					arr[day-1] = luckyUnluckyDayAmount;
+				}
+				else 
+				{
+					System.out.println("day "+day+" He WON---->$"+50);
+					monthWin = monthWin+50;
+					luckyUnluckyDayAmount = luckyUnluckyDayAmount+50;
+					arr[day-1] = luckyUnluckyDayAmount;
+				}
+				day++;
+			}
 
+			System.out.println("month loss is $"+monthLoss);
+			System.out.println("month wins is $"+monthWin);
+			if(monthLoss > monthWin)//to calculate 30 days loss
+			{
+				overallMonthLoss = monthLoss-monthWin;
+				System.out.println("overall loss in a month  is $"+overallMonthLoss);
+			}
+
+			else {//to calculate 30 days win
+				overallMonthWin = monthWin-monthLoss;
+				System.out.println("overall profit in a month  is $"+overallMonthWin);
+			}
+			//System.out.println(Arrays.toString(arr));
+			getLuckyUnluckyDay(arr);
+			month++;
+		}while(monthWin > monthLoss);
 	}
 
 	public static void getLuckyUnluckyDay(int arr[])
